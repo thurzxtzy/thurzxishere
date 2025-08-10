@@ -1,0 +1,278 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>List Payment - Kaa Official</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #000;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+    .particles {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    .container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.5);
+      padding: 40px;
+      border-radius: 25px;
+      box-shadow: 0 0 30px #0ff;
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+      z-index: 2;
+    }
+    .profile-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid #0ff;
+      box-shadow: 0 0 20px #0ff;
+      margin: 0 auto 20px;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    .typing-text {
+      font-size: 20px;
+      color: #0ff;
+      margin-bottom: 20px;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid #0ff;
+      width: 0;
+      animation: typing 2s steps(30, end) forwards, blink 0.75s step-end infinite;
+    }
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      background: #111;
+      color: white;
+      border: none;
+      border-radius: 15px;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #0ff;
+      transition: 0.2s;
+    }
+    .btn:hover {
+      background: #222;
+      box-shadow: 0 0 25px #0ff;
+    }
+    .popup-bg {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 99;
+      justify-content: center;
+      align-items: center;
+    }
+    .popup {
+      background: #111;
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      width: 280px;
+      box-shadow: 0 0 30px #0ff;
+      position: relative;
+    }
+    .popup img {
+      max-width: 100%;
+      margin-bottom: 15px;
+      border-radius: 10px;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      color: #0ff;
+      font-size: 22px;
+      cursor: pointer;
+    }
+    .copy-btn {
+      margin-top: 10px;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      background: #0ff;
+      color: black;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 0 15px #0ff;
+    }
+    .music-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #111;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 10px #0ff;
+      cursor: pointer;
+      z-index: 3;
+    }
+    .music-popup {
+      display: none;
+      position: fixed;
+      bottom: 80px;
+      left: 20px;
+      width: 250px;
+      background: #111;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #0ff;
+      z-index: 100;
+    }
+    .music-popup .close-btn {
+      top: 10px;
+      right: 15px;
+    }
+    .music-list button {
+      background: #0ff;
+      color: #000;
+      margin: 5px 0;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      width: 100%;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 12px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+<canvas class="particles"></canvas>
+<div class="container">
+  <div class="profile-img">
+  <img src="https://files.catbox.moe/xu71mg.jpg" alt="profile" style="width: 100%; height: 100%; border-radius: 50%;">
+</div>
+  <div class="typing-text">𝗛𝗮𝗶, 𝗜'𝗺 𝗞𝗮𝗮 𝗢𝗳𝗳𝗶𝗰𝗶𝗮𝗹</div>
+  <button class="btn" onclick="showPopup('082368247776')">𝗗𝗔𝗡𝗔</button>
+  <button class="btn" onclick="showPopup('085119234879')">𝗚𝗢𝗣𝗔𝗬</button>
+  <button class="btn" onclick="showQRPopup('https://files.catbox.moe/0nau5b.jpg')">𝗤𝗥𝗜𝗦</button>
+  <footer>© Powered By Kaa Official</footer>
+</div><div class="popup-bg" id="popupBg">
+  <div class="popup" id="popup">
+    <div class="close-btn" onclick="closePopup()">×</div>
+    <div id="popupContent"></div>
+  </div>
+</div><div class="music-btn" onclick="toggleMusicPopup()">🎵</div>
+<div class="music-popup" id="musicPopup">
+  <div class="close-btn" onclick="toggleMusicPopup()">×</div>
+  <div class="music-list">
+    <button onclick="playSong('https://files.catbox.moe/d7vvgz.mp3')">🎵 Fireflies</button>
+    <button onclick="playSong('https://files.catbox.moe/unbo27.mp3')">🎵 Tie me down</button>
+    <button onclick="playSong('https://files.catbox.moe/8smnze.mp3')">🎵 Dj 8 Letters</button>
+    <button onclick="playSong('https://files.catbox.moe/vf0kbo.mp3')">🎵 Kasih aba aba</button>
+  </div>
+</div>
+<audio id="audioPlayer"></audio><script>
+  function showPopup(number) {
+    document.getElementById('popupContent').innerHTML = `
+      <h3 style="color:#0ff">${number}</h3>
+      <button class="copy-btn" onclick="copyToClipboard('${number}')">Salin</button>
+    `;
+    document.getElementById('popupBg').style.display = 'flex';
+  }
+
+  function showQRPopup(imgSrc) {
+    document.getElementById('popupContent').innerHTML = `
+      <img src="https://files.catbox.moe/0nau5b.jpg" alt="QRIS">
+      <p style="color:#0ff">Screenshot Qris diatas untuk melanjutkan pembayaran</p>
+    `;
+    document.getElementById('popupBg').style.display = 'flex';
+  }
+
+  function closePopup() {
+    document.getElementById('popupBg').style.display = 'none';
+  }
+
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text);
+    alert("Disalin: " + text);
+  }
+
+  function toggleMusicPopup() {
+    const popup = document.getElementById('musicPopup');
+    popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+  }
+
+  function playSong(src) {
+    const audio = document.getElementById('audioPlayer');
+    audio.src = src;
+    audio.play();
+    toggleMusicPopup();
+  }
+
+  // Particles
+  const canvas = document.querySelector('.particles');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let particles = [];
+  for (let i = 0; i < 50; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: Math.random() * 2 + 1,
+      speedX: (Math.random() - 0.5) * 2,
+      speedY: (Math.random() - 0.5) * 2,
+    });
+  }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.x += p.speedX;
+      p.y += p.speedY;
+      if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+      ctx.fillStyle = '#0ff';
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    requestAnimationFrame(animateParticles);
+  }
+  animateParticles();
+</script></body>
+</html>
